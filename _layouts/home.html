@@ -1,0 +1,23 @@
+---
+layout: default
+---
+
+<div class="home">
+  <div>
+    {%- for post in site.posts -%}
+    <a
+      class="post-link block px-2 py-4 border-b-2 border-gray-600 hover:bg-gray-800  hover:border-blue-500"
+      href="{{ post.url | relative_url }}"
+    >
+      <div class="max-w-xl m-auto text-xl">
+        {{ post.title | escape }}
+        <span class="text-gray-600">
+          * {{ post.author | escape }}
+        </span>
+      </div>
+
+      {%- if site.show_excerpts -%} {{ post.excerpt }} {%- endif -%}
+    </a>
+    {%- endfor -%}
+  </div>
+</div>

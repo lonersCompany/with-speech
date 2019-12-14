@@ -1,0 +1,104 @@
+@import "./scss/_fonts.scss";
+
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+article a {
+  color: rgb(129, 141, 255);
+}
+
+// article h1 {
+//   padding-top: 3em;
+// }
+
+pre {
+  white-space: normal;
+}
+
+/* .speakable {
+  display: block;
+} */
+
+.speaking .speakable[data-state="pasive"] {
+  &,
+  p {
+    opacity: 0.2;
+  }
+}
+
+.speakable[data-state="active"] {
+  &,
+  p {
+    opacity: 1;
+  }
+}
+
+.speakable[data-state="pause"] {
+  &,
+  p {
+    color: orange;
+  }
+}
+
+img.speakable[data-state="active"] {
+  box-shadow: orange 0px 0px 2px 1px;
+}
+
+.speakable:hover {
+  cursor: pointer;
+  box-shadow: orange 0px 0px 2px 1px;
+}
+
+img.speakable[data-state="active"] {
+  color: rgba(50, 50, 50, 1);
+  animation: progress 3s;
+}
+
+@keyframes progress {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
+.presentation {
+  display: none;
+  .presentation-mode & {
+    display: block;
+  }
+}
+
+.presentation-mode img.speakable {
+  height: 100px;
+}
+
+.slide {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+.h-70 {
+  height: 70vh;
+}
+
+.h-50 {
+  height: 50vh;
+}
+
+.font-body {
+  p {
+    margin-bottom: 2em;
+  }
+}
+
+header {
+  background: linear-gradient(#1a202c, transparent);
+}

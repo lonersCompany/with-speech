@@ -1,0 +1,78 @@
+//
+// component: full-menu
+//________________________
+
+$size: 2.2em;
+$size-sm: 1em;
+$line-height: 0.25em;
+$line-height-sm: 0.15em;
+$color: #757575;
+
+/* mixin */
+@mixin crossB($property, $val) {
+  -webkit-#{$property}: $val;
+  -moz-#{$property}: $val;
+  -ms-#{$property}: $val;
+  #{$property}: $val;
+}
+
+/* icon */
+.nav-hamburger {
+  display: inline-block;
+  z-index: 100;
+  width: $size;
+  height: $size;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  margin: auto 0.1rem;
+  cursor: pointer;
+  @include crossB(transform, rotate(0deg));
+  @include crossB(transition, 0.5s ease-in-out);
+
+  div {
+    position: absolute;
+    height: $line-height;
+    width: 100%;
+    background: $color;
+    opacity: 1;
+    left: 0;
+    @include crossB(transform, rotate(0deg));
+    @include crossB(transition, 0.25s ease-in-out);
+  }
+
+  div:nth-child(1) {
+    top: 15%;
+    @include crossB(transform-origin, left center);
+  }
+
+  div:nth-child(2) {
+    top: 45%;
+    //@include crossB(transform-origin, left center);
+  }
+
+  div:nth-child(3) {
+    top: 75%;
+    @include crossB(transform-origin, left center);
+  }
+}
+
+.nav-hamburger.active {
+  div:nth-child(1) {
+    top: 10%;
+    left: 15%;
+    @include crossB(transform, rotate(45deg));
+  }
+
+  div:nth-child(2) {
+    width: 0;
+    opacity: 0;
+  }
+
+  div:nth-child(3) {
+    transform-origin: left center;
+    left: 15%;
+    top: 80%;
+    @include crossB(transform, rotate(-45deg));
+  }
+}

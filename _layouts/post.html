@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+<div id="app" editor="false" presentation="false" autoScroll="true">
+  {%- include presentation.html -%}
+
+  <div class="mb-10 ">
+    {%- for chapter in page.chapters -%}
+    <div>
+      <a
+        href="{{chapter.link}}"
+        class="block border-b text-gray-600 hover:text-blue-500 hover:bg-gray-800 border-gray-600 hover:border-blue-500"
+      >
+        <div class="flex max-w-xl m-auto py-2">
+          <div class="flex-grow">
+            {{chapter.name}}
+          </div>
+          <div class="grow">
+            ⟶
+          </div>
+        </div>
+      </a>
+    </div>
+    {%- endfor -%}
+  </div>
+
+  <article id="content" class="max-w-xl m-auto font-body leading-snug">
+    {{ content }}
+  </article>
+</div>
