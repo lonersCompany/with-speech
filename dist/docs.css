@@ -7,7 +7,7 @@
 
   font-display: swap;
 
-  src: url("/assets/font-files/Inter-Regular.woff2") format("woff2"), url("/assets/font-files/Inter-Regular.woff") format("woff");
+  src: url("/with-speech/assets/font-files/Inter-Regular.woff2") format("woff2"), url("/with-speech/assets/font-files/Inter-Regular.woff") format("woff");
 }
 
 @font-face {
@@ -19,7 +19,7 @@
 
   font-display: swap;
 
-  src: url("/assets/font-files/Inter-Medium.woff2") format("woff2"), url("/assets/font-files/Inter-Medium.woff") format("woff");
+  src: url("/with-speech/assets/font-files/Inter-Medium.woff2") format("woff2"), url("/with-speech/assets/font-files/Inter-Medium.woff") format("woff");
 }
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
