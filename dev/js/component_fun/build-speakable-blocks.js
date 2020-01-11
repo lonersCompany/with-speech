@@ -16,6 +16,9 @@ const createSpeakableBlock = node => {
   const rawText = node.innerHTML;
 
   const sentencesArr = cutToSentences(rawText);
+  console.log(node);
+  console.log(sentencesArr);
+  
   const wrapedSentencesArr = sentencesArr.map(string => wrapIn("span", string));
 
   node.innerText = "";
@@ -30,5 +33,6 @@ export const buildSpeakableBlocks = appEl => {
   const blocksArr = Array.from(appEl.children);
   const blocksArray = blocksArr.map(createSpeakableBlock);
   const elements = blocksArray.flat(1);
+  elements.forEach((el, index) => el.setAttribute("data-index", index));
   return elements;
 };

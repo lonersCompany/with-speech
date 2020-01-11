@@ -6,27 +6,43 @@
 
 @import "tailwindcss/utilities";
 
-article a {
-  color: rgb(129, 141, 255);
-}
-
-// article h1 {
-//   padding-top: 3em;
-// }
-
 pre {
   white-space: normal;
+}
+
+.transition {
+  transition: all 0.3s ease-in;
+}
+
+p {
+  margin-bottom: 3em;
+}
+
+h1 {
+  margin-bottom: 3em;
+}
+
+h2 {
+  margin-bottom: 3em;
 }
 
 /* .speakable {
   display: block;
 } */
 
+// .speaking .speakable {
+//   display: block;
+// }
+
 .speaking .speakable[data-state="pasive"] {
   &,
   p {
     opacity: 0.2;
   }
+}
+
+.speaking img.speakable:hover {
+  opacity: 1;
 }
 
 .speakable[data-state="active"] {

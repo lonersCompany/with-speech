@@ -7,7 +7,7 @@
 
   font-display: swap;
 
-  src: url("/with-speech/assets/font-files/Inter-Regular.woff2") format("woff2"), url("/with-speech/assets/font-files/Inter-Regular.woff") format("woff");
+  src: url("/assets/font-files/Inter-Regular.woff2") format("woff2"), url("/assets/font-files/Inter-Regular.woff") format("woff");
 }
 
 @font-face {
@@ -19,7 +19,7 @@
 
   font-display: swap;
 
-  src: url("/with-speech/assets/font-files/Inter-Medium.woff2") format("woff2"), url("/with-speech/assets/font-files/Inter-Medium.woff") format("woff");
+  src: url("/assets/font-files/Inter-Medium.woff2") format("woff2"), url("/assets/font-files/Inter-Medium.woff") format("woff");
 }
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
@@ -624,15 +624,15 @@ video {
 }
 
 h1 {
-  font-size: 1.875rem;
+  font-size: 4rem;
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: 2.25rem;
 }
 
 p {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 }
 
 .container {
@@ -3679,14 +3679,6 @@ p {
   content: "";
   display: table;
   clear: both;
-}
-
-.font-display {
-  font-family: Inter;
-}
-
-.font-body {
-  font-family: Serif;
 }
 
 .font-hairline {
@@ -11433,12 +11425,25 @@ p {
   z-index: auto;
 }
 
-article a {
-  color: #818dff;
-}
-
 pre {
   white-space: normal;
+}
+
+.transition {
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+}
+
+p {
+  margin-bottom: 3em;
+}
+
+h1 {
+  margin-bottom: 3em;
+}
+
+h2 {
+  margin-bottom: 3em;
 }
 
 /* .speakable {
@@ -11448,6 +11453,10 @@ pre {
 .speaking .speakable[data-state="pasive"],
 .speaking .speakable[data-state="pasive"] p {
   opacity: 0.2;
+}
+
+.speaking img.speakable:hover {
+  opacity: 1;
 }
 
 .speakable[data-state="active"],
@@ -14549,14 +14558,6 @@ header {
     content: "";
     display: table;
     clear: both;
-  }
-
-  .sm\:font-display {
-    font-family: Inter;
-  }
-
-  .sm\:font-body {
-    font-family: Serif;
   }
 
   .sm\:font-hairline {
@@ -25323,14 +25324,6 @@ header {
     clear: both;
   }
 
-  .md\:font-display {
-    font-family: Inter;
-  }
-
-  .md\:font-body {
-    font-family: Serif;
-  }
-
   .md\:font-hairline {
     font-weight: 100;
   }
@@ -36095,14 +36088,6 @@ header {
     clear: both;
   }
 
-  .lg\:font-display {
-    font-family: Inter;
-  }
-
-  .lg\:font-body {
-    font-family: Serif;
-  }
-
   .lg\:font-hairline {
     font-weight: 100;
   }
@@ -46865,14 +46850,6 @@ header {
     content: "";
     display: table;
     clear: both;
-  }
-
-  .xl\:font-display {
-    font-family: Inter;
-  }
-
-  .xl\:font-body {
-    font-family: Serif;
   }
 
   .xl\:font-hairline {

@@ -8,7 +8,7 @@ const synthetizeElement = element => {
   const synthesis = new SpeechSynthesisUtterance();
   synthesis.lang = "en";
 
-  // synthesis.voice = getVoice();
+  synthesis.rate = 0.9;
 
   if (element.innerText) {
     synthesis.text = element.innerText;
@@ -25,16 +25,6 @@ const speakSynthesis = synthesis => {
   window.speechSynthesis.speak(synthesis);
 };
 
-const pauseOrResume = el => {
-  if (window.speechSynthesis.paused) {
-    window.speechSynthesis.resume();
-    setState(el, "active");
-  } else {
-    window.speechSynthesis.pause();
-    setState(el, "pause");
-  }
-};
-
 const setPresentationSlide = state => {
   const { item, slide, slides } = state;
 
@@ -46,69 +36,80 @@ const setPresentationSlide = state => {
       state.slide = el;
     }
   });
-
-  console.log(slide);
 };
 
-function play(state, itemIndex) {
-  // RESUME / PAUSE
-  if (itemIndex === state.index) {
-    pauseOrResume(state.item.el);
+function play(state, index) {
+  // IF PLAYED INDEX IS SAME AS ACTIVE INDEX
+  if (state.index === index) {
+    // RESUME / PAUSE
+    if (window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+      state.items[index].setAttribute("data-state", "active");
+    } else {
+      window.speechSynthesis.pause();
+      state.items[index].setAttribute("data-state", "pause");
+      clearTimeout(window.imager);
+    }
   } else {
+    // ELSE PLAYED INDEX IS NEW
+
+    console.log(state.items);
+    console.log(index);
+
     document.body.classList.add("speaking");
+    state.items[index].setAttribute("data-state", "active");
+
     // handle index bounds... loop or no?
     const count = state.items.length;
-    const newIndex = (itemIndex + count) % count;
 
     // uninit prev Item
-    if (state.item) {
-      state.item.synthesis.onend = null;
-      window.speechSynthesis.cancel();
-      setState(state.item.el, "pasive");
+    if (state.el) {
+      state.el.setAttribute("data-state", "pasive");
     }
 
-    // update state
-    state.index = newIndex;
-    state.item = state.items[newIndex];
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+    }
+
+    if (state.synthesis) {
+      state.synthesis.onend = null;
+    }
+
+    state.index = index;
+    state.el = state.items[index];
+    state.synthesis = synthetizeElement(state.items[index]);
+
+    // Speak Synthesis
+    speakSynthesis(state.synthesis);
+
+    // Scroll
+    scrollTo(state.el);
+
+    // if presentation mode
+    //setPresentationSlide(state);
 
     // RECURSION
-
-    if (state.item.el.tagName == "IMG") {
-      setTimeout(() => play(state, newIndex + 1), 2000);
+    const newIndex = (index + state.items.length) % count;
+    console.log("play func");
+    if (state.items[index].tagName == "IMG") {
+      // create callback for image
+      console.log("ADD");
+      window.imager = setTimeout(() => play(state, newIndex + 1), 2000);
     } else {
-      state.item.synthesis.onend = () => {
+      // create callback for image
+      state.synthesis.onend = () => {
         play(state, newIndex + 1);
       };
     }
-
-    // Change state
-    setState(state.item.el, "active");
-
-    // Speak
-    speakSynthesis(state.item.synthesis);
-
-    // Speak
-    scrollTo(state.item.el);
-
-    // if presentation mode
-    setPresentationSlide(state);
   }
 }
-
-const createItem = (el, index) => {
-  return {
-    el,
-    itemIndex: index,
-    slideKey: el.getAttribute("slide-key"),
-    synthesis: synthetizeElement(el)
-  };
-};
 
 function loadState(blocksArr, slidesArr) {
   const state = {
     index: -1,
-    item: null, // keep both item and index for convenience
-    items: blocksArr.map(createItem),
+    el: null,
+    synthesis: null,
+    items: blocksArr,
     slide: null,
     slides: slidesArr
   };
@@ -121,13 +122,13 @@ export const initPlayer = (blocksArr, slidesArr) => {
   const state = loadState(blocksArr, slidesArr);
   const { items } = state;
 
-  items.forEach(item => {
-    const { el, itemIndex } = item;
-    el.addEventListener("click", e => {
-      if (e.target.tagName === "A") {
-        return;
-      }
-      play(state, itemIndex);
-    });
+  let article = document.getElementById("content");
+  
+  article.addEventListener("click", e => {
+    if (e.target.tagName === "A") {
+      return;
+    }
+    console.log(e.target);
+    play(state, parseInt(e.target.getAttribute("data-index")));
   });
 };
