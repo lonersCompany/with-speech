@@ -3,6 +3,7 @@ layout: post
 title: "New American Interfaces"
 date: 2019-11-08 14:19:48 +0100
 author: É. Urcades
+key: 00a35c5a-9850-4016-9787-be02feec966c
 ---
 
 ## source: urcad.es/writing/new-american-interfaces/

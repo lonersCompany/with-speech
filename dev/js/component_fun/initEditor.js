@@ -9,7 +9,6 @@ import { getSentenceFocusPlugin } from "../editor/get-sentence-plugin.js";
 let myPlugin = new Plugin({
   props: {
     handleKeyDown(view, event) {
-      console.log("A key was pressed!");
       return false; // We did not handle this
     }
   }

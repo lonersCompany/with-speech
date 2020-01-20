@@ -52,10 +52,6 @@ function play(state, index) {
     }
   } else {
     // ELSE PLAYED INDEX IS NEW
-
-    console.log(state.items);
-    console.log(index);
-
     document.body.classList.add("speaking");
     state.items[index].setAttribute("data-state", "active");
 
@@ -90,10 +86,9 @@ function play(state, index) {
 
     // RECURSION
     const newIndex = (index + state.items.length) % count;
-    console.log("play func");
+
     if (state.items[index].tagName == "IMG") {
       // create callback for image
-      console.log("ADD");
       window.imager = setTimeout(() => play(state, newIndex + 1), 2000);
     } else {
       // create callback for image
@@ -120,15 +115,13 @@ function loadState(blocksArr, slidesArr) {
 export const initPlayer = (blocksArr, slidesArr) => {
   // GENERATE AUDIO TEXT TO SENTENCES
   const state = loadState(blocksArr, slidesArr);
-  const { items } = state;
 
   let article = document.getElementById("content");
-  
+
   article.addEventListener("click", e => {
     if (e.target.tagName === "A") {
       return;
     }
-    console.log(e.target);
     play(state, parseInt(e.target.getAttribute("data-index")));
   });
 };

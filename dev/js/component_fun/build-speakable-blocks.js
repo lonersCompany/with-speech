@@ -16,9 +16,7 @@ const createSpeakableBlock = node => {
   const rawText = node.innerHTML;
 
   const sentencesArr = cutToSentences(rawText);
-  console.log(node);
-  console.log(sentencesArr);
-  
+
   const wrapedSentencesArr = sentencesArr.map(string => wrapIn("span", string));
 
   node.innerText = "";
@@ -34,5 +32,25 @@ export const buildSpeakableBlocks = appEl => {
   const blocksArray = blocksArr.map(createSpeakableBlock);
   const elements = blocksArray.flat(1);
   elements.forEach((el, index) => el.setAttribute("data-index", index));
+
+  const documentKey = appEl.getAttribute("data-key")
+
+  console.log(documentKey);
+  
+  const forSpeak = elements.map((element, index)  => 
+    {
+
+      const text = element.tagName == "IMG" ? element.getAttribute("alt") : element.innerText;
+      const key = documentKey + "-" + index;
+      const voice = "Ivy";
+
+      return {
+        voice,
+        text,
+        key
+      }
+    });
+
+  console.log(forSpeak);
   return elements;
 };

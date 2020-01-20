@@ -13,7 +13,6 @@ export const createNode = ({ tag, className, path }) => {
 
 export const cutToSentences = string => {
   const sentencesArray = string.match(/[^\.!:\?]+[\.!:\?]|([^\.!\?]+$)+/g);
-  // console.log(sentencesArray);
   return sentencesArray;
 };
 

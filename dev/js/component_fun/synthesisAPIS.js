@@ -3,8 +3,7 @@ export function populateVoiceList() {
   let voices = window.speechSynthesis.getVoices();
 
   for (let i = 0; i < voices.length; i++) {
-    console.log(voices[i].lang, voices[i].name);
-    console.log(voices[i]);
+
     var option = document.createElement("option");
     option.textContent = voices[i].name + " (" + voices[i].lang + ")";
 
