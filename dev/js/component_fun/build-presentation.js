@@ -32,6 +32,7 @@ export const buildPresentation = blocksArr => {
   // Else add key to block
   blocksArr.forEach(el => {
     if (el.tagName === "IMG") {
+      console.log("NOW");
       slideKey = Math.floor(100000 + Math.random() * 900000);
       const slideEl = createNewSlide(el, slideKey);
       slidesArr.push(slideEl);

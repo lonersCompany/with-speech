@@ -2,7 +2,13 @@
 layout: default
 ---
 
-<div id="app" editor="false" presentation="false" autoScroll="true">
+<div
+  id="app"
+  editor="false"
+  presentation="false"
+  autoScroll="true"
+  data-cut="{{page.cut}}"
+>
   {%- include presentation.html -%}
 
   <div class="mb-10 ">
@@ -25,7 +31,11 @@ layout: default
     {%- endfor -%}
   </div>
 
-  <article id="content" data-key="{{page.key}}" class="max-w-xl text-xl m-auto leading-snug">
+  <article
+    id="content"
+    data-key="{{page.key}}"
+    class="max-w-xl text-xl m-auto leading-snug"
+  >
     {{ content }}
   </article>
 </div>

@@ -3,19 +3,16 @@ layout: post
 title: "Men and machines"
 date: 2019-11-08 14:19:48 +0100
 author: Ernst Gombrich
+cut: false
 ---
-
 
 ## source: b-ok.cc
 
-![]({{site.baseurl}}/assets/a_little_history_of_the_world/cover.jpg) 
+![]({{site.baseurl}}/assets/a_little_history_of_the_world/cover.jpg)
 
 click on text to start
 
-
-
 # MEN AND MACHINES
-
 
 Mastering the mathematics of nature enabled people not only to
 understand the forces of nature, but to use them. And
@@ -76,7 +73,6 @@ in 1753, there were many attempts from the 1770s onwards, but only in
 short telegraph to his friends. Once again, hardly more than ten years
 had passed before use of the telegraph was widespread.
 
-
 ![image]({{site.baseurl}}/assets/a_little_history_of_the_world/f0281-02.jpg)
 
 SAMUEL MORSE TELEGRAPH KEY
@@ -118,11 +114,9 @@ and comfortably could now be saved by the factory owner, or spent on
 himself. Of course, he still needed workers to manage the machines. But
 only unskilled workers, and not many of them.
 
-
 ![image]({{site.baseurl}}/assets/a_little_history_of_the_world/f0282-01.jpg)
 
 MECHANICAL LOOMS
-
 
 But the worst thing was this: the city's hundred weavers were now out of
 work and would starve, because one machine was doing their work for

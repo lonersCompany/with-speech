@@ -34,7 +34,7 @@ h2 {
 //   display: block;
 // }
 
-.speaking .speakable[data-state="pasive"] {
+.speaking .speakable {
   &,
   p {
     opacity: 0.2;
@@ -55,17 +55,17 @@ h2 {
 .speakable[data-state="pause"] {
   &,
   p {
-    color: orange;
+    color: rgb(179, 255, 163);
   }
 }
 
 img.speakable[data-state="active"] {
-  box-shadow: orange 0px 0px 2px 1px;
+  box-shadow: rgb(38, 0, 255) 0px 0px 2px 1px;
 }
 
 .speakable:hover {
   cursor: pointer;
-  box-shadow: orange 0px 0px 2px 1px;
+  box-shadow: rgb(38, 0, 255) 0px 0px 2px 1px;
 }
 
 img.speakable[data-state="active"] {

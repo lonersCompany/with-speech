@@ -3,6 +3,7 @@ layout: post
 title: "How Balenciaga Became the Art World’s Favorite Brand"
 date: 2019-11-08 14:19:48 +0100
 author: RACHEL TASHJIAN
+cut: false
 ---
 
 ## source: www.gq.com
