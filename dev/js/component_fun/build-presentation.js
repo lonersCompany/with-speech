@@ -32,21 +32,19 @@ export const buildPresentation = blocksArr => {
   // Else add key to block
   blocksArr.forEach(el => {
     if (el.tagName === "IMG") {
-      console.log("NOW");
-      slideKey = Math.floor(100000 + Math.random() * 900000);
-      const slideEl = createNewSlide(el, slideKey);
-      slidesArr.push(slideEl);
+      slideKey = `${Math.floor(100000 + Math.random() * 900000)}`;
+
+      const slideObj = {
+        el: createNewSlide(el, slideKey),
+        key: slideKey
+      };
+      slidesArr.push(slideObj);
     }
 
     el.setAttribute("slide-key", slideKey);
   });
 
-  if (slidesArr.length) {
-  }
-
   window.document.addEventListener("keydown", e => {
-    if (slidesArr.length) {
-    }
     if (e.ctrlKey && e.key === "p") {
       if (slidesArr.length) {
         document.body.classList.toggle("presentation-mode");

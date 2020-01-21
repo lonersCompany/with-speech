@@ -26,14 +26,16 @@ const speakSynthesis = synthesis => {
 };
 
 const setPresentationSlide = state => {
-  const { item, slide, slides } = state;
+  const { items, index, slide, slides } = state;
 
-  if (slide) slide.classList.remove("active");
+  if (slide) slide.el.classList.remove("active");
 
-  slides.forEach(el => {
-    if (item.slideKey === el.getAttribute("slide-key")) {
-      el.classList.add("active");
-      state.slide = el;
+  const itemSlideKey = items[index].getAttribute("slide-key");
+  slides.forEach(obj => {
+    if (obj.key == itemSlideKey) {
+      console.log(obj.key);
+      obj.el.classList.add("active");
+      state.slide = obj;
     }
   });
 };
@@ -131,7 +133,7 @@ function play(state, index) {
     }
 
     // if presentation mode
-    //setPresentationSlide(state);
+    setPresentationSlide(state);
 
     // RECURSION
   }
@@ -152,7 +154,6 @@ function loadState(blocksArr, slidesArr) {
 
 export const initPlayer = (blocksArr, slidesArr) => {
   // GENERATE AUDIO TEXT TO SENTENCES
-
   const state = loadState(blocksArr, slidesArr);
 
   state.items.forEach((el, index) => {

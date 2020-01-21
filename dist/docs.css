@@ -11516,6 +11516,11 @@ img.speakable[data-state="active"] {
   height: 100px;
 }
 
+.presentation-mode .speakable {
+  display: block;
+  padding-bottom: 30px;
+}
+
 .slide {
   display: none;
 }

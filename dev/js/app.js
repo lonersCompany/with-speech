@@ -6,7 +6,7 @@ import { buildSpeakableBlocks } from "./component_fun/build-speakable-blocks.js"
 
 const init = appEl => {
   window.speechSynthesis.cancel();
-  const editorState = appEl.getAttribute("data-cut");
+  const speakableElementsAreReady = appEl.getAttribute("data-cut");
   const presentationState = appEl.getAttribute("presentation");
 
   const contentEl = document.getElementById("content");
@@ -18,17 +18,14 @@ const init = appEl => {
   //TODO: CLEAN IN UP!
 
   const buildIU = () => {
-    if (editorState == "false") {
-      const blocksArr = buildSpeakableBlocks(contentEl);
-      const slidesArr = buildPresentation(blocksArr);
-      const play = initPlayer(blocksArr, slidesArr);
-    } else {
-      const blocksArr = Array.from(
-        document.getElementsByClassName("speakable")
-      );
-      const slidesArr = buildPresentation(blocksArr);
-      const play = initPlayer(blocksArr, slidesArr);
-    }
+    const blocksArr =
+      speakableElementsAreReady == "true"
+        ? Array.from(document.getElementsByClassName("speakable"))
+        : buildSpeakableBlocks(contentEl);
+    console.log(blocksArr);
+    const slidesArr = buildPresentation(blocksArr);
+
+    const play = initPlayer(blocksArr, slidesArr);
   };
 
   buildIU();
