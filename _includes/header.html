@@ -1,4 +1,5 @@
 <header class="fixed w-full top-0 z-20" role="banner">
+  {%- if page.title -%}
   <a
     href="{{site.baseurl}}/"
     class="py-12 px-4 page-title block text-xl text-semibold hover:text-blue-500 hover:bg-gray-800"
@@ -8,4 +9,5 @@
       <span>✗</span>
     </div>
   </a>
+  {%- endif -%}
 </header>
