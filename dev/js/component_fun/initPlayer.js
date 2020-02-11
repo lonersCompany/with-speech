@@ -25,142 +25,107 @@ const speakSynthesis = synthesis => {
   window.speechSynthesis.speak(synthesis);
 };
 
-const setPresentationSlide = state => {
-  const { items, index, slide, slides } = state;
+// const setPresentationSlide = state => {
+//   const { items, index, slide, slides } = state;
 
-  if (slide) slide.el.classList.remove("active");
+//   if (slide) slide.el.classList.remove("active");
 
-  const itemSlideKey = items[index].getAttribute("slide-key");
-  slides.forEach(obj => {
-    if (obj.key == itemSlideKey) {
-      console.log(obj.key);
-      obj.el.classList.add("active");
-      state.slide = obj;
-    }
-  });
-};
+//   const itemSlideKey = items[index].getAttribute("slide-key");
+//   slides.forEach(obj => {
+//     if (obj.key == itemSlideKey) {
+//       console.log(obj.key);
+//       obj.el.classList.add("active");
+//       state.slide = obj;
+//     }
+//   });
+// };
 
-function play(state, index) {
+function play(state, item) {
+  console.log("NOW");
   // IF PLAYED INDEX IS SAME AS ACTIVE INDEX
-  if (state.index === index) {
-    const currenItem = state.items[index];
-    const link = currenItem.getAttribute("data-url");
-
+  if (state.item === item) {
     document.body.classList.toggle("speaking");
+    console.log("AAAA");
     // RESUME / PAUSE
-    if (state.audioObject) {
-      if (state.audioObject.paused) {
-        state.audioObject.play();
-        currenItem.setAttribute("data-state", "active");
-      } else {
-        state.audioObject.pause();
-        currenItem.setAttribute("data-state", "pause");
-      }
+
+    if (state.audioObject.paused) {
+      state.audioObject.play();
     } else {
-      if (window.speechSynthesis.paused) {
-        window.speechSynthesis.resume();
-        currenItem.setAttribute("data-state", "active");
-      } else {
-        window.speechSynthesis.pause();
-        currenItem.setAttribute("data-state", "pause");
-        clearTimeout(window.imager);
-      }
+      state.audioObject.pause();
     }
   } else {
     // ELSE PLAYED INDEX IS NEW
-    const currenItem = state.items[index];
-    const link = currenItem.getAttribute("data-url");
+
+    if (state.item) {
+      state.item.el.classList.remove("active");
+    }
+    const currentItem = item;
+
+    state.item = currentItem;
+
+    state.item.el.classList.add("active");
 
     document.body.classList.add("speaking");
-    scrollTo(currenItem);
-    currenItem.setAttribute("data-state", "active");
+    console.log(currentItem.el);
+    scrollTo(currentItem.el);
 
     // handle index bounds... loop or no?
-    const count = state.items.length;
-    const newIndex = (index + state.items.length) % count;
 
-    // uninit prev Item
-    if (state.el) {
-      state.el.setAttribute("data-state", "pasive");
-    }
-
-    if (window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel();
-    }
-
-    if (state.synthesis) {
-      state.synthesis.onend = null;
-    }
-
-    if (state.audioObject) {
-      state.audioObject.pause();
-      state.audioObject.removeEventListener("ended", () => {
-        play(state, newIndex + 1);
-      });
-    }
-
-    state.index = index;
-    state.el = currenItem;
-
-    if (link) {
+    if (!state.audioObject) {
       const serverbuckerlink =
         "https://text-with-speech.s3.eu-central-1.amazonaws.com/";
-      const linkToAudioFile = serverbuckerlink + link;
+      const linkToAudioFile = serverbuckerlink + state.audioKey;
       state.audioObject = new Audio(linkToAudioFile);
-
-      // Play audio
-      state.audioObject.play();
-
-      // Set recursion
-      state.audioObject.addEventListener("ended", () => {
-        play(state, newIndex + 1);
-      });
-    } else {
-      state.synthesis = synthetizeElement(currenItem);
-      // Speak Synthesis
-      speakSynthesis(state.synthesis);
-
-      // Set recursion
-      if (currenItem.tagName == "IMG") {
-        // create callback for image
-        window.imager = setTimeout(() => play(state, newIndex + 1), 2000);
-      } else {
-        // create callback for image
-        state.synthesis.onend = () => {
-          play(state, newIndex + 1);
-        };
-      }
     }
+    console.log(item.marks[0]);
+    const itemStartingMark = item.marks[0];
+    // Play audio
+    state.audioObject.currentTime = itemStartingMark;
+    console.log(state.audioObject.currentTime);
+    state.audioObject.play();
 
-    // if presentation mode
-    setPresentationSlide(state);
+    // Set recursion
+    state.audioObject.addEventListener("ended", () => {
+      document.body.classList.remove("speaking");
+      state.item.el.classList.remove("active");
+    });
 
-    // RECURSION
+    state.audioObject.addEventListener("timeupdate", function(e) {
+      const currentTime = e.target.currentTime;
+      state.items.forEach(item => {
+        if (currentTime >= item.marks[0] && currentTime <= item.marks[1])
+          if (item != state.item) {
+            state.item.el.classList.remove("active");
+            item.el.classList.add("active");
+            state.item = item;
+            scrollTo(item.el);
+          }
+      });
+    });
   }
 }
 
-function loadState(blocksArr, slidesArr) {
+function loadState(speakableItems, audioKey) {
   const state = {
     index: -1,
-    el: null,
-    synthesis: null,
-    items: blocksArr,
-    slide: null,
-    slides: slidesArr
+    item: null,
+    items: speakableItems,
+    audioObject: null,
+    audioKey
   };
 
   return state;
 }
 
-export const initPlayer = (blocksArr, slidesArr) => {
+export const initPlayer = ({ speakableItems, audioKey }) => {
   // GENERATE AUDIO TEXT TO SENTENCES
-  const state = loadState(blocksArr, slidesArr);
+  console.log(speakableItems);
 
-  state.items.forEach((el, index) => {
-    el.addEventListener("click", () => {
-      if (el.tagName === "A") return;
-
-      play(state, index);
+  const state = loadState(speakableItems, audioKey);
+  state.items.forEach((item, index) => {
+    item.el.addEventListener("click", () => {
+      if (item.el.tagName === "A") return;
+      play(state, item);
     });
   });
 };

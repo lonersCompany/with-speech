@@ -18,24 +18,39 @@ const init = appEl => {
   //TODO: CLEAN IN UP!
 
   const buildIU = () => {
-    const blocksArr =
-      speakableElementsAreReady == "true"
-        ? Array.from(document.getElementsByClassName("speakable"))
-        : buildSpeakableBlocks(contentEl);
-    console.log(blocksArr);
-    const slidesArr = buildPresentation(blocksArr);
+    const speakableElArr = Array.from(
+      document.getElementsByClassName("speakable")
+    );
+    const speakableItems = speakableElArr.map(el => {
+      const startMark = parseInt(el.getAttribute("data-start"));
+      const endMark = parseInt(el.getAttribute("data-end"));
+      return {
+        el: el,
+        marks: [startMark * 0.001, endMark * 0.001]
+      };
+    });
 
-    const play = initPlayer(blocksArr, slidesArr);
+    const audioKey = document
+      .getElementById("content")
+      .getAttribute("data-key");
+    // TODO: Multi blocks
+    const blockObj = {
+      speakableItems,
+      audioKey
+    };
+    //const slidesArr = buildPresentation(blocksArr);
+    console.log(audioKey);
+    const play = initPlayer(blockObj);
   };
 
   buildIU();
 
-  window.document.addEventListener("keydown", e => {
-    if (e.ctrlKey && e.key === "e") {
-      state.editor = state.editor ? false : true;
-      buildIU();
-    }
-  });
+  // window.document.addEventListener("keydown", e => {
+  //   if (e.ctrlKey && e.key === "e") {
+  //     state.editor = state.editor ? false : true;
+  //     buildIU();
+  //   }
+  // });
 };
 
 // ON LOAD EVENT

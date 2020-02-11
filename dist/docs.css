@@ -11439,6 +11439,7 @@ p {
 
 .mobile-mockup::after {
   content: "";
+  z-index: -1000;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -11451,6 +11452,7 @@ p {
 
 .mobile-mockup::before {
   content: "";
+  z-index: -1000;
   position: absolute;
   top: 2px;
   bottom: 2px;
@@ -11494,29 +11496,26 @@ h2 {
   opacity: 1;
 }
 
-.speakable[data-state="active"],
-.speakable[data-state="active"] p {
+.speakable.active,
+.speakable.active p {
   opacity: 1;
 }
 
-.speakable[data-state="pause"],
-.speakable[data-state="pause"] p {
+.speakable.pause,
+.speakable.pause p {
   color: #b3ffa3;
 }
 
-img.speakable[data-state="active"] {
+img.speakable.active {
   box-shadow: #2600ff 0px 0px 2px 1px;
+  color: #323232;
+  -webkit-animation: progress 3s;
+          animation: progress 3s;
 }
 
 .speakable:hover {
   cursor: pointer;
   box-shadow: #2600ff 0px 0px 2px 1px;
-}
-
-img.speakable[data-state="active"] {
-  color: #323232;
-  -webkit-animation: progress 3s;
-          animation: progress 3s;
 }
 
 @-webkit-keyframes progress {

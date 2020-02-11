@@ -19,6 +19,7 @@
 
   &::after {
     content: "";
+    z-index: -1000;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -35,6 +36,7 @@
 
   &::before {
     content: "";
+    z-index: -1000;
     position: absolute;
     top: 2px;
     bottom: 2px;
@@ -84,32 +86,29 @@ h2 {
   opacity: 1;
 }
 
-.speakable[data-state="active"] {
+.speakable.active {
   &,
   p {
     opacity: 1;
   }
 }
 
-.speakable[data-state="pause"] {
+.speakable.pause {
   &,
   p {
     color: rgb(179, 255, 163);
   }
 }
 
-img.speakable[data-state="active"] {
+img.speakable.active {
   box-shadow: rgb(38, 0, 255) 0px 0px 2px 1px;
+  color: rgba(50, 50, 50, 1);
+  animation: progress 3s;
 }
 
 .speakable:hover {
   cursor: pointer;
   box-shadow: rgb(38, 0, 255) 0px 0px 2px 1px;
-}
-
-img.speakable[data-state="active"] {
-  color: rgba(50, 50, 50, 1);
-  animation: progress 3s;
 }
 
 @keyframes progress {
